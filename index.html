@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EST to KST Real-Time Clock</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .clock-container {
+            display: flex;
+            gap: 20px;
+        }
+        .clock {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 200px;
+        }
+        h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .time {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #0066cc;
+            margin-bottom: 10px;
+        }
+        .date {
+            font-size: 1.2em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock-container">
+        <div class="clock">
+            <h2>EST</h2>
+            <div id="est-time" class="time"></div>
+            <div id="est-date" class="date"></div>
+        </div>
+        <div class="clock">
+            <h2>KST</h2>
+            <div id="kst-time" class="time"></div>
+            <div id="kst-date" class="date"></div>
+        </div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const estMoment = moment().tz("America/New_York");
+            const kstMoment = moment().tz("Asia/Seoul");
+            
+            document.getElementById('est-time').textContent = estMoment.format('h:mm:ss A');
+            document.getElementById('est-date').textContent = estMoment.format('MMMM D, YYYY');
+            
+            document.getElementById('kst-time').textContent = kstMoment.format('h:mm:ss A');
+            document.getElementById('kst-date').textContent = kstMoment.format('MMMM D, YYYY');
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
